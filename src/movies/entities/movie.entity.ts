@@ -9,7 +9,7 @@ export class Movie {
     @Column()
     name: string;
 
-    @Column()
+    @Column({ length: 600})
     description: string;
 
     @Column()
