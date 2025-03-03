@@ -8,6 +8,9 @@ import { UsersModule } from './users/users.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth/auth.guard';
 import { RolesGuard } from './auth/roles.guard';
+import { ScheduleModule } from '@nestjs/schedule';
+import { TasksModule } from './tasks/tasks.module';
+import { StarWarsModule } from './starwars/starwars.module';
 
 @Module({
   imports: [
@@ -21,7 +24,13 @@ import { RolesGuard } from './auth/roles.guard';
       port: 3306,
       entities: ['dist/**/*.entity.js'],
       synchronize: false,
-  }), AuthModule, UsersModule],
+  }), 
+    AuthModule, 
+    UsersModule,
+    ScheduleModule.forRoot(),
+    TasksModule,
+    StarWarsModule
+  ],
   controllers: [AppController],
   providers: [
     AppService,
