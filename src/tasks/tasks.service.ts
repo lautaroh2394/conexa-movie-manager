@@ -11,20 +11,27 @@ export class TasksService {
         private readonly moviesService: MoviesService
     ){}
 
-    @Cron(CronExpression.EVERY_5_SECONDS)
+    @Cron(CronExpression.EVERY_12_HOURS)
     async updateMoviesFromStarWarsApi(){
         this.logger.log("Starting Star Wars update...")
         const movies = await this.starWarsService.getMovies()
-        await Promise.allSettled(movies.map(async (movie) => {
-            try {
-                await this.moviesService.create(movie);
-                this.logger.log(`${movie.name} created successfully`)
-            }
-            catch (e){
-                if (e.code === 'ER_DUP_ENTRY') this.logger.log(`${movie.name} already exists`)
-                else this.logger.error(`An error ocurred when creating ${movie.name}: ${e}`);
-            }
-        }))
+        const results = await Promise.allSettled(movies.map(movie => this.tryToCreate(movie)))
         this.logger.log("Star Wars update finished")
+        return { 
+            result: results.map((m: PromiseSettledResult<any>) => m["value"])
+        }
+    }
+
+    private async tryToCreate(movie){
+        let result;
+        try {
+            await this.moviesService.create(movie);
+            result = `${movie.name} created successfully`;
+        }
+        catch (e){
+            result = `${movie.name}: ${e.message}`
+        }
+        this.logger.log(result)
+        return result;
     }
 }

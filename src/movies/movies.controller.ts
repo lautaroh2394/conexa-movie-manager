@@ -40,7 +40,8 @@ export class MoviesController {
 
     @Delete(':id')
     @Admin()
-    delete(@Param('id') id: number) {
-        return this.moviesService.delete(id)
+    async delete(@Param('id') id: number) {
+        await this.moviesService.delete(id)
+        return;
     }
 }
