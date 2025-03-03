@@ -1,6 +1,7 @@
 import { Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Admin } from 'src/auth/decorators/admin.decorator';
+import { TaskResult } from './types';
 
 @Controller('tasks')
 export class TasksController {
@@ -11,7 +12,7 @@ export class TasksController {
     @Post('star-wars-update')
     @Admin()
     @HttpCode(HttpStatus.OK)
-    starWarsUpdate(){
+    starWarsUpdate(): Promise<TaskResult>{
         return this.tasksService.updateMoviesFromStarWarsApi()
     }
 }

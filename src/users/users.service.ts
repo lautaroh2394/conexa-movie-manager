@@ -10,7 +10,7 @@ export class UsersService {
         private readonly usersRepository: Repository<User>,
     ) {}
 
-    async findOne(username: string) {
+    async findOne(username: string): Promise<User> {
         const user = await this.usersRepository.findOne({
             where: { username }
         })
@@ -21,10 +21,9 @@ export class UsersService {
     async create(userData){
         const usersWithSameUsername = await this.usersRepository.count({where: {username: userData.username}})
         if (usersWithSameUsername > 0 ) throw new BadRequestException("Username taken")
-            
+
         const user = this.usersRepository.create(userData)
-        await this.usersRepository.save(user)
-        return;
+        return this.usersRepository.save(user)
     }
 
     async getRolesFor(username) {

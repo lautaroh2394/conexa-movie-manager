@@ -13,7 +13,7 @@ export class MoviesService {
         private readonly movieRepository: Repository<Movie>,
     ) {}
 
-    async create(createMovieDto: CreateMovieDto){
+    async create(createMovieDto: CreateMovieDto): Promise<Movie>{
         try {
             const movie = this.movieRepository.create(createMovieDto)
             const res =  await this.movieRepository.save(movie)
@@ -24,20 +24,20 @@ export class MoviesService {
         }
     }
 
-    async findOne(id: number){
+    async findOne(id: number): Promise<Movie>{
         const movie = await this.movieRepository.findOne({ where: { id }});
         if (!movie) throw new NotFoundException()
         return movie;
     }
 
-    findAll({ limit = 10, offset = 0 }: PaginationDto){
+    findAll({ limit = 10, offset = 0 }: PaginationDto): Promise<Movie[]>{
         return this.movieRepository.find({
             skip: offset,
             take: limit
         });
     }
 
-    async update(id: number, updateMovieDto: UpdateMovieDto){
+    async update(id: number, updateMovieDto: UpdateMovieDto): Promise<Movie>{
         const movieCount = await this.movieRepository.count({ where: {id}})
         const movieExists = movieCount > 0
         if (movieExists) throw new NotFoundException();
@@ -45,7 +45,7 @@ export class MoviesService {
         return this.findOne(id);
     }
 
-    async delete(id: number){
+    async delete(id: number): Promise<Movie>{
         const movie = await this.findOne(id);
         if (!movie) throw new NotFoundException()
         return this.movieRepository.remove(movie)

@@ -2,9 +2,9 @@ import { Body, Controller, Get, NotFoundException, Post, Request, UnauthorizedEx
 import { UsersService } from 'src/users/users.service';
 import { LoginDto } from './dto/login.dto';
 import { AuthService } from './auth.service';
-import { AuthGuard } from './auth.guard';
 import { SignUpDto } from './dto/signup.dto ';
 import { Public } from './decorators/public.decorator';
+import { AuthResponse, UserProfile } from './types';
 
 @Controller('auth')
 export class AuthController {
@@ -15,20 +15,19 @@ export class AuthController {
 
     @Public()
     @Post('login')
-    async login(@Body() loginDto: LoginDto){
+    async login(@Body() loginDto: LoginDto): Promise<AuthResponse>{
         const {username, password} = loginDto;
         return this.authService.login(username, password);
     }
 
     @Public()
     @Post('signup')
-    async register(@Body() signUpDto: SignUpDto){
+    async register(@Body() signUpDto: SignUpDto): Promise<UserProfile>{
         return this.authService.register(signUpDto)
     }
 
     @Get('profile')
-    async getProfile(@Request() req){
-        const {hashedPassword, ...userData} = await this.usersService.findOne(req.user.username)
-        return userData
+    async getProfile(@Request() req): Promise<UserProfile>{
+        return this.authService.getProfile(req.user.username)
     }
 }

@@ -1,0 +1,1 @@
+export type TaskResult = {result: string[]};
