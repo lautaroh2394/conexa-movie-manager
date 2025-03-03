@@ -1,0 +1,14 @@
+services:
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'movies-db'
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      - '3306:3306'
+    volumes:
+      - movies-db:/var/lib/mysql
+  
+volumes:
+  movies-db:
