@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MoviesModule } from './movies/movies.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -11,6 +10,7 @@ import { RolesGuard } from './auth/roles.guard';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TasksModule } from './tasks/tasks.module';
 import { StarWarsModule } from './starwars/starwars.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -29,9 +29,9 @@ import { StarWarsModule } from './starwars/starwars.module';
     UsersModule,
     ScheduleModule.forRoot(),
     TasksModule,
-    StarWarsModule
+    StarWarsModule,
+    HealthModule
   ],
-  controllers: [AppController],
   providers: [
     AppService,
     {
