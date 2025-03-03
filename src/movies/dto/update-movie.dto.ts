@@ -1,3 +1,4 @@
+import { IsNumber } from "class-validator";
 import { CreateMovieDto } from "./create-movie.dto";
 import { PartialType } from "@nestjs/mapped-types";
 
