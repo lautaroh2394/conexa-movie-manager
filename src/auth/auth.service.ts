@@ -27,8 +27,8 @@ export class AuthService {
         return this.getProfile(username)
     }
 
-    async getProfile(req): Promise<UserProfile>{
-        const {hashedPassword, ...userData} = await this.usersService.findOne(req.user.username)
+    async getProfile(username: string): Promise<UserProfile>{
+        const {hashedPassword, ...userData} = await this.usersService.findOne(username)
         return userData
     }
 }
