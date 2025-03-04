@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppService } from './app.service';
 import { MoviesModule } from './movies/movies.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
@@ -33,7 +32,6 @@ import { HealthModule } from './health/health.module';
     HealthModule
   ],
   providers: [
-    AppService,
     {
       provide: APP_GUARD,
       useClass: AuthGuard
