@@ -13,7 +13,7 @@ import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
-    MoviesModule, 
+    MoviesModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',

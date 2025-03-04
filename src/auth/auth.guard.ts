@@ -2,7 +2,7 @@ import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from
 import { JwtService } from "@nestjs/jwt";
 import { Reflector } from "@nestjs/core";
 import { IS_PUBLIC_KEY } from "./decorators/public.decorator";
-import { UsersService } from "src/users/users.service";
+import { UsersService } from "./../../src/users/users.service";
 import { jwtConstants } from "./constants";
 
 @Injectable()
