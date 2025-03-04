@@ -10,6 +10,11 @@ import { ApiUnauthorizedResponseDoc } from './../../src/auth/doc/api-unauthorize
 import { ApiBearerAuth, ApiNotFoundResponse, ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 import { ApiNotFoundResponseDoc } from './doc/api-not-found.decorator';
 import { ApiForbiddenResponseDoc } from './doc/api-forbidden.decorator';
+import { FindAllMovieDocs } from './doc/find-all-movie-docs.decorator';
+import { FindOneMovieDocs } from './doc/find-one-movie-docs.decorator';
+import { CreateMovieDocs } from './doc/create-movie-docs.decorator';
+import { UpdateMovieDocs } from './doc/update-movie-docs.decorator';
+import { DeleteMovieDocs } from './doc/delete-movie-docs.decorator';
 
 @ApiBearerAuth()
 @Controller('movies')
@@ -17,37 +22,28 @@ export class MoviesController {
     constructor(private readonly moviesService: MoviesService) {}
     
     @Get()
-    @ApiOperation({description: 'Returns a list of movies. Every user can access this endpoint'})
-    @ApiUnauthorizedResponseDoc()
+    @FindAllMovieDocs()
     findAll(@Query() pagination: PaginationDto): Promise<Movie[]> {
         return this.moviesService.findAll(pagination)
     }
 
     @Get(':id')
     @RegularUser()
-    @ApiOperation({description: 'Returns details for specific movie by id. Regular users can access this endpoint'})
-    @ApiNotFoundResponseDoc()
-    @ApiUnauthorizedResponseDoc()
-    @ApiForbiddenResponseDoc()
+    @FindOneMovieDocs()
     async findOne(@Param('id') id: number): Promise<Movie> {
         return this.moviesService.findOne(id)
     }
 
     @Post()
     @Admin()
-    @ApiOperation({description: 'Creates a new movie. Admin users can access this endpoint'})
-    @ApiUnauthorizedResponseDoc()
-    @ApiForbiddenResponseDoc()
+    @CreateMovieDocs()
     create(@Body() createMovieDto: CreateMovieDto): Promise<Movie> {
         return this.moviesService.create(createMovieDto)
     }
 
     @Patch(':id')
     @Admin()
-    @ApiOperation({description: 'Updates an existing movie by id. Admin users can access this endpoint'})
-    @ApiNotFoundResponseDoc()
-    @ApiUnauthorizedResponseDoc()
-    @ApiForbiddenResponseDoc()
+    @UpdateMovieDocs()
     update(
         @Param('id') id, 
         @Body() updateMovieDto: UpdateMovieDto
@@ -57,11 +53,7 @@ export class MoviesController {
 
     @Delete(':id')
     @Admin()
-    @ApiOperation({description: 'Deletes an existing movie by id. Admin users can access this endpoint'})
-    @ApiOkResponse({description: 'Does not return a body'})
-    @ApiNotFoundResponseDoc()
-    @ApiUnauthorizedResponseDoc()
-    @ApiForbiddenResponseDoc()
+    @DeleteMovieDocs()
     async delete(@Param('id') id: number): Promise<void> {
         await this.moviesService.delete(id)
         return;

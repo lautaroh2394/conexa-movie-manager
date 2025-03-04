@@ -1,7 +1,7 @@
 import { applyDecorators } from "@nestjs/common";
 import { ApiBadRequestResponse, ApiCreatedResponse } from "@nestjs/swagger";
 
-export const DocSignUp = () => applyDecorators(
+export const SignUpDocs = () => applyDecorators(
         ApiBadRequestResponse({
             description: 'Some field was invalid',
             examples: 

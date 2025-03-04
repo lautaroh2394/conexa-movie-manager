@@ -7,7 +7,9 @@ import { Public } from './decorators/public.decorator';
 import { AuthResponse, UserProfile } from './types';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiForbiddenResponse, ApiOkResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { ApiUnauthorizedResponseDoc } from './doc/api-unauthorized.decorator';
-import { DocSignUp } from './doc/doc-sign-up-decorator';
+import { SignUpDocs } from './doc/sign-up-docs.decorator';
+import { LoginDocs } from './doc/login-docs.decorator';
+import { GetProfileDocs } from './doc/get-profile-docs.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -19,10 +21,7 @@ export class AuthController {
     @Public()
     @Post('login')
     @HttpCode(HttpStatus.OK)
-    @ApiOkResponse({ description: 'User logged in succesfully', example: {
-        "access_token": "some-long-token"
-    }})
-    @ApiUnauthorizedResponseDoc('Failed to validate credentials')
+    @LoginDocs()
     async login(@Body() loginDto: LoginDto): Promise<AuthResponse>{
         const {username, password} = loginDto;
         return this.authService.login(username, password);
@@ -30,24 +29,14 @@ export class AuthController {
 
     @Public()
     @Post('signup')
-    @DocSignUp()
+    @SignUpDocs()
     async register(@Body() signUpDto: SignUpDto): Promise<UserProfile>{
         return this.authService.register(signUpDto)
     }
 
     @Get('profile')
     @ApiBearerAuth()
-    @ApiUnauthorizedResponseDoc()
-    @ApiOkResponse({ 
-        description: 'Returns the users data minus the hashed password',
-        example: {
-            'id': 8,
-            'username': 'someuser',
-            'roles': [
-                'regular_user'
-            ]
-        }
-    })
+    @GetProfileDocs()
     async getProfile(@Request() req): Promise<UserProfile>{
         return this.authService.getProfile(req.user.username)
     }
