@@ -9,6 +9,6 @@ services:
       - '3306:3306'
     volumes:
       - movies-db:/var/lib/mysql
-  
+
 volumes:
   movies-db:
