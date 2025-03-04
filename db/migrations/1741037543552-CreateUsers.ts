@@ -18,6 +18,13 @@ export class CreateUsers1741037543552 implements MigrationInterface {
             roles: [Role.REGULAR_USER]
         })
         await queryRunner.manager.save(regularUser)
+
+        const masterUser = await queryRunner.manager.create(User, {
+            username: 'master',
+            hashedPassword: bcrypt.hashSync('1234', 1),
+            roles: [Role.REGULAR_USER, Role.ADMIN]
+        })
+        await queryRunner.manager.save(masterUser)
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
