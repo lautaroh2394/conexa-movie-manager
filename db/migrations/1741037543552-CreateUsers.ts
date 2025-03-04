@@ -1,4 +1,4 @@
-import { Role } from "src/auth/constants";
+import { Role } from "src/auth/roles.enum";
 import { User } from "src/users/entities/user.entity";
 import { MigrationInterface, QueryRunner } from "typeorm";
 import * as bcrypt from 'bcrypt'
