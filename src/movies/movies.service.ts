@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { PaginationDto } from './dto/pagination.dto';
+import { PAGINATION_LIMIT_DEFAULT, PAGINATION_OFFSET_DEFAULT } from './constants';
 
 @Injectable()
 export class MoviesService {
@@ -30,7 +31,7 @@ export class MoviesService {
         return movie;
     }
 
-    findAll({ limit = 10, offset = 0 }: PaginationDto): Promise<Movie[]>{
+    findAll({ limit = PAGINATION_LIMIT_DEFAULT, offset = PAGINATION_OFFSET_DEFAULT }: PaginationDto): Promise<Movie[]>{
         return this.movieRepository.find({
             skip: offset,
             take: limit
