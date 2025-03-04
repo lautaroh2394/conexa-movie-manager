@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Movie } from './entities/movie.entity';
-import { Repository } from 'typeorm';
+import { QueryFailedError, Repository } from 'typeorm';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { PaginationDto } from './dto/pagination.dto';
@@ -20,7 +20,7 @@ export class MoviesService {
             const res =  await this.movieRepository.save(movie)
             return res;
         } catch (e) {
-            if (e.code === 'ER_DUP_ENTRY') throw new BadRequestException('Movie already exists')
+            if (e['code'] === 'ER_DUP_ENTRY') throw new BadRequestException('Movie already exists')
             throw e;
         }
     }
