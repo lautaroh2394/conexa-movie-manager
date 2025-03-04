@@ -1,9 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { MoviesService } from 'src/movies/movies.service';
-import { StarWarsService } from 'src/starwars/starwars.service';
+import { MoviesService } from './../../src/movies/movies.service';
+import { StarWarsService } from './../../src/starwars/starwars.service';
 import { TaskFail, TaskResultMap, TaskResults, TaskSuccess } from './types';
-import { CreateMovieDto } from 'src/movies/dto/create-movie.dto';
+import { CreateMovieDto } from './../../src/movies/dto/create-movie.dto';
 
 @Injectable()
 export class TasksService {
