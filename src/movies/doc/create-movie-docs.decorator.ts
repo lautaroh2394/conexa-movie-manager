@@ -1,6 +1,6 @@
 import { applyDecorators } from "@nestjs/common";
 import { ApiOperation } from "@nestjs/swagger";
-import { ApiUnauthorizedResponseDoc } from "src/auth/doc/api-unauthorized.decorator";
+import { ApiUnauthorizedResponseDoc } from "./../../../src/auth/doc/api-unauthorized.decorator";
 import { ApiForbiddenResponseDoc } from "./api-forbidden.decorator";
 
 export const CreateMovieDocs = () => applyDecorators(

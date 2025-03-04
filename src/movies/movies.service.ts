@@ -40,7 +40,7 @@ export class MoviesService {
 
     async update(id: number, updateMovieDto: UpdateMovieDto): Promise<Movie>{
         const movieCount = await this.movieRepository.count({ where: {id}})
-        const movieExists = movieCount > 0
+        const movieExists = movieCount === 0
         if (movieExists) throw new NotFoundException();
         await this.movieRepository.update(id, updateMovieDto)
         return this.findOne(id);

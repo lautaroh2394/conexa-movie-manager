@@ -1,4 +1,4 @@
-import { Role } from '../constants';
+import { Role } from '../roles.enum';
 import { registerDecorator, ValidationOptions } from 'class-validator';
 
 export function IsRoleArray(validationOptions?: ValidationOptions) {

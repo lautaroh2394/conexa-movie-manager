@@ -1,7 +1,7 @@
 import { applyDecorators } from "@nestjs/common";
 import { ApiOperation } from "@nestjs/swagger";
 import { ApiNotFoundResponseDoc } from "./api-not-found.decorator";
-import { ApiUnauthorizedResponseDoc } from "src/auth/doc/api-unauthorized.decorator";
+import { ApiUnauthorizedResponseDoc } from "./../../../src/auth/doc/api-unauthorized.decorator";
 import { ApiForbiddenResponseDoc } from "./api-forbidden.decorator";
 
 export const FindOneMovieDocs = () => applyDecorators(

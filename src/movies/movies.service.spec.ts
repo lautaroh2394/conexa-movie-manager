@@ -94,7 +94,7 @@ describe('MoviesService', () => {
 
   describe('update', ()=>{
     it('should update movie and return it', async ()=>{
-      const movieRepositorySpyCount = jest.spyOn(movieRepository, 'count').mockResolvedValue(0)
+      const movieRepositorySpyCount = jest.spyOn(movieRepository, 'count').mockResolvedValue(1)
       const movieRepositorySpyUpdate = jest.spyOn(movieRepository, 'update').mockResolvedValue({
         raw: '',
         affected: 1,
@@ -109,8 +109,8 @@ describe('MoviesService', () => {
       expect(movieRepositorySpyUpdate).toHaveBeenCalledWith(id, updateData)
       expect(res).toEqual({...updateData, id})
     })
-    it('should throw not found for non existent movie', async ()=>{
-      const movieRepositorySpyCount = jest.spyOn(movieRepository, 'count').mockResolvedValue(1)
+    it('should throw not found for existent movie', async ()=>{
+      const movieRepositorySpyCount = jest.spyOn(movieRepository, 'count').mockResolvedValue(0)
       const {id, ...data} = mockedMovie1;
       const updateData = {...data, description: 'updated description'}
       const res = service.update(id, updateData)

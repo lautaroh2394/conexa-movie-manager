@@ -5,7 +5,7 @@ import { User } from './entities/user.entity';
 import { createMock } from '@golevelup/ts-jest';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './user.dto';
-import { Role } from './../../src/auth/constants';
+import { Role } from '../auth/roles.enum';
 
 describe('UsersService', () => {
   let service: UsersService;

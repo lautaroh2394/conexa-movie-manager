@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../../src/users/users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { SignUpDto } from './dto/signup.dto ';
+import { SignUpDto } from './dto/signup.dto';
 import { AuthResponse, UserProfile } from './types';
 import { CreateUserDto } from '../../src/users/user.dto';
 

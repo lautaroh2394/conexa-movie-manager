@@ -45,7 +45,7 @@ export class MoviesController {
     @Admin()
     @UpdateMovieDocs()
     update(
-        @Param('id') id, 
+        @Param('id') id: number, 
         @Body() updateMovieDto: UpdateMovieDto
     ): Promise<Movie> {
         return this.moviesService.update(id, updateMovieDto)

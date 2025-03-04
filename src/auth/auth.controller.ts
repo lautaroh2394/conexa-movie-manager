@@ -2,7 +2,7 @@ import { Body, Controller, Get, HttpCode, HttpStatus, NotFoundException, Post, R
 import { UsersService } from '../../src/users/users.service';
 import { LoginDto } from './dto/login.dto';
 import { AuthService } from './auth.service';
-import { SignUpDto } from './dto/signup.dto ';
+import { SignUpDto } from './dto/signup.dto';
 import { Public } from './decorators/public.decorator';
 import { AuthResponse, UserProfile } from './types';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiForbiddenResponse, ApiOkResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
