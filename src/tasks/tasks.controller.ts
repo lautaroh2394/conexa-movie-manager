@@ -1,7 +1,11 @@
 import { Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Admin } from 'src/auth/decorators/admin.decorator';
-import { TaskResult } from './types';
+import { TaskResults } from './types';
+import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import { ApiUnauthorizedResponseDoc } from 'src/auth/doc/api-unauthorized.decorator';
+import { ApiForbiddenResponseDoc } from 'src/movies/doc/api-forbidden.decorator';
+import { ApiOkResponseDoc } from './doc/api-ok-response-doc.decorator';
 
 @Controller('tasks')
 export class TasksController {
@@ -12,7 +16,11 @@ export class TasksController {
     @Post('star-wars-update')
     @Admin()
     @HttpCode(HttpStatus.OK)
-    starWarsUpdate(): Promise<TaskResult>{
+    @ApiOperation({description: 'Executes the star wars update task and returns a result. Admin users can access this endpoint'})
+    @ApiOkResponseDoc()
+    @ApiUnauthorizedResponseDoc()
+    @ApiForbiddenResponseDoc()
+    starWarsUpdate(): Promise<TaskResults>{
         return this.tasksService.updateMoviesFromStarWarsApi()
     }
 }

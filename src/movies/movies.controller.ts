@@ -9,6 +9,7 @@ import { Movie } from './entities/movie.entity';
 import { ApiUnauthorizedResponseDoc } from 'src/auth/doc/api-unauthorized.decorator';
 import { ApiNotFoundResponse, ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 import { ApiNotFoundResponseDoc } from './doc/api-not-found.decorator';
+import { ApiForbiddenResponseDoc } from './doc/api-forbidden.decorator';
 
 @Controller('movies')
 export class MoviesController {
@@ -26,6 +27,7 @@ export class MoviesController {
     @ApiOperation({description: 'Returns details for specific movie by id. Regular users can access this endpoint'})
     @ApiNotFoundResponseDoc()
     @ApiUnauthorizedResponseDoc()
+    @ApiForbiddenResponseDoc()
     async findOne(@Param('id') id: number): Promise<Movie> {
         return this.moviesService.findOne(id)
     }
@@ -34,6 +36,7 @@ export class MoviesController {
     @Admin()
     @ApiOperation({description: 'Creates a new movie. Admin users can access this endpoint'})
     @ApiUnauthorizedResponseDoc()
+    @ApiForbiddenResponseDoc()
     create(@Body() createMovieDto: CreateMovieDto): Promise<Movie> {
         return this.moviesService.create(createMovieDto)
     }
@@ -43,6 +46,7 @@ export class MoviesController {
     @ApiOperation({description: 'Updates an existing movie by id. Admin users can access this endpoint'})
     @ApiNotFoundResponseDoc()
     @ApiUnauthorizedResponseDoc()
+    @ApiForbiddenResponseDoc()
     update(
         @Param('id') id, 
         @Body() updateMovieDto: UpdateMovieDto
@@ -56,6 +60,7 @@ export class MoviesController {
     @ApiOkResponse({description: 'Does not return a body'})
     @ApiNotFoundResponseDoc()
     @ApiUnauthorizedResponseDoc()
+    @ApiForbiddenResponseDoc()
     async delete(@Param('id') id: number): Promise<void> {
         await this.moviesService.delete(id)
         return;
