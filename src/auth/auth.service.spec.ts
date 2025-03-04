@@ -45,7 +45,7 @@ describe('AuthService', () => {
 
   describe('register', () => {
     it('should create user and return user profile', async ()=>{
-      const usersServiceSpyCreate = jest.spyOn(usersService, 'create').mockResolvedValue([mockedUser])
+      const usersServiceSpyCreate = jest.spyOn(usersService, 'create').mockResolvedValue(mockedUser)
       const usersServiceSpyGetProfile = jest.spyOn(usersService, 'findOne').mockResolvedValue({id: 1, username: 'my-username', hashedPassword: 'hashed-password', roles: []})
       const res = await service.register({username: 'my-username', password: 'my-password', roles: []})
       expect(usersServiceSpyCreate).toHaveBeenCalled()
