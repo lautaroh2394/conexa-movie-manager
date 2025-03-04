@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsArray, IsOptional, IsString, IsStrongPassword } from "class-validator";
-import { Role } from "../constants";
+import { Role } from "../roles.enum";
 import { IsRoleArray } from "../decorators/is-role-array.decorator";
 
 export class SignUpDto {
