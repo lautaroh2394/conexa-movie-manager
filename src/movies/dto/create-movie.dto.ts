@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { IsDate, IsDateString, IsString } from "class-validator";
 
 export class CreateMovieDto {
@@ -14,5 +15,6 @@ export class CreateMovieDto {
     producer: string;
 
     @IsDateString()
+    @ApiProperty({ example: '1988-12-04'})
     releaseDate: string;
 }

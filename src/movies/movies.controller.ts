@@ -7,10 +7,11 @@ import { Admin } from 'src/auth/decorators/admin.decorator';
 import { RegularUser } from 'src/auth/decorators/regular.decorator';
 import { Movie } from './entities/movie.entity';
 import { ApiUnauthorizedResponseDoc } from 'src/auth/doc/api-unauthorized.decorator';
-import { ApiNotFoundResponse, ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiNotFoundResponse, ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 import { ApiNotFoundResponseDoc } from './doc/api-not-found.decorator';
 import { ApiForbiddenResponseDoc } from './doc/api-forbidden.decorator';
 
+@ApiBearerAuth()
 @Controller('movies')
 export class MoviesController {
     constructor(private readonly moviesService: MoviesService) {}

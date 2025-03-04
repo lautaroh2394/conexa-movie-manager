@@ -5,7 +5,7 @@ import { AuthService } from './auth.service';
 import { SignUpDto } from './dto/signup.dto ';
 import { Public } from './decorators/public.decorator';
 import { AuthResponse, UserProfile } from './types';
-import { ApiBadRequestResponse, ApiCreatedResponse, ApiForbiddenResponse, ApiOkResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiForbiddenResponse, ApiOkResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { ApiUnauthorizedResponseDoc } from './doc/api-unauthorized.decorator';
 import { DocSignUp } from './doc/doc-sign-up-decorator';
 
@@ -36,6 +36,7 @@ export class AuthController {
     }
 
     @Get('profile')
+    @ApiBearerAuth()
     @ApiUnauthorizedResponseDoc()
     @ApiOkResponse({ 
         description: 'Returns the users data minus the hashed password',

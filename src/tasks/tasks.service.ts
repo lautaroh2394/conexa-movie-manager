@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { MoviesService } from 'src/movies/movies.service';
 import { StarWarsService } from 'src/starwars/starwars.service';
-import { TaskFail, TaskResults, TaskSuccess } from './types';
+import { TaskFail, TaskResultMap, TaskResults, TaskSuccess } from './types';
 import { CreateMovieDto } from 'src/movies/dto/create-movie.dto';
 
 @Injectable()
@@ -20,11 +20,7 @@ export class TasksService {
         const results = await Promise.allSettled(movies.map(movie => this.tryToCreate(movie)))
         this.logger.log("Star Wars update finished")
         return { 
-            result:  results.reduce((prev, curr) => {
-                const [name, success, message] = curr['value'];
-                prev[name] = {success: success, message: message}
-                return prev;
-            }, {})
+            result: await this.digestResults(results)
         }
     }
 
@@ -37,7 +33,15 @@ export class TasksService {
         catch (e){
             result = [movie.name, TaskFail, e.message] ;
         }
-        this.logger.log(result)
+        this.logger.log(`${result[0]}; task succesful: ${result[1]}. ${result[2]}`)
         return result;
+    }
+
+    private async digestResults(results: PromiseSettledResult<PromiseSettledResult<any>>[]): Promise<TaskResultMap>{
+        return results.reduce((prev, curr) => {
+            const [name, success, message] = curr['value'];
+            prev[name] = {success: success, message: message}
+            return prev;
+        }, {})
     }
 }
