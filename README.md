@@ -45,5 +45,5 @@ Para poder usar los endpoints:
 
 
 ### Deployment:
-Deployeé este proyecto en una raspberry pi y usé ngrok como reverse proxy, deberían poder acceder desde este endpoint: [link](https://b380-2800-810-488-d4e-2d06-5234-45b9-bc5a.ngrok-free.app/api)
+Deployeé este proyecto en una raspberry pi y usé ngrok como reverse proxy, deberían poder acceder desde este endpoint: [link](https://e018-2800-810-488-d4e-2d06-5234-45b9-bc5a.ngrok-free.app/api)
 
